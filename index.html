@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 Legacy PH In House Competition</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .tournament-title {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #000000;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .division {
+            margin-bottom: 40px;
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 2px solid #D4AF37;
+        }
+        
+        .division-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 3px solid #D4AF37;
+            padding-bottom: 10px;
+        }
+        
+        .bracket-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            min-height: 200px;
+        }
+        
+        .bracket-round {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .round-label {
+            font-weight: bold;
+            color: #8B4513;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        
+        .match-card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 15px;
+            width: 220px;
+            border: 2px solid #8B4513;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .match-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212,175,55,0.3);
+            border-color: #D4AF37;
+        }
+        
+        .match-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #D4AF37, #8B4513, #D4AF37);
+        }
+        
+        .match-header {
+            text-align: center;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        
+        .match-time {
+            text-align: center;
+            color: #8B4513;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .competitors {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .competitor {
+            background: #f8f8f8;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            border-left: 3px solid #D4AF37;
+            color: #333333;
+            font-weight: 500;
+        }
+        
+        .competitor:nth-child(2) {
+            border-left-color: #8B4513;
+        }
+        
+        .vs {
+            text-align: center;
+            color: #000000;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin: 5px 0;
+        }
+        
+        .championship {
+            border: 3px solid #D4AF37;
+            box-shadow: 0 4px 20px rgba(212,175,55,0.4);
+            background: #fffef7;
+        }
+        
+        .championship::before {
+            background: linear-gradient(90deg, #D4AF37, #F4E87C, #D4AF37);
+        }
+        
+        .semi-final {
+            border: 2px solid #8B4513;
+            background: #faf8f5;
+        }
+        
+        .connector {
+            width: 40px;
+            height: 2px;
+            background: #8B4513;
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .connector::before {
+            content: '';
+            position: absolute;
+            right: -5px;
+            top: -3px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid #8B4513;
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+        }
+        
+        .single-match {
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .weight-class {
+            font-size: 0.8em;
+            color: #ccc;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        
+        .location {
+            font-size: 0.7em;
+            color: #666666;
+            font-style: italic;
+        }
+        
+        .round-1 { order: 1; }
+        .semi-final-round { order: 2; }
+        .championship-round { order: 3; }
+        
+        @media (max-width: 768px) {
+            .bracket-container {
+                flex-direction: column;
+            }
+            
+            .connector {
+                width: 2px;
+                height: 20px;
+                transform: rotate(90deg);
+            }
+            
+            .match-card {
+                width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="tournament-title">Legacy PH In-House Competition</div>
+    <!-- Kids Division -->
+    <div class="division">
+        <div class="division-title">KIDS DIVISION - Roosterweight</div>
+        <div class="bracket-container">
+            <div class="bracket-round round-1">
+                <div class="round-label">Round 1</div>
+                <div class="match-card">
+                    <div class="match-header">Match 1</div>
+                    <div class="match-time">10:30 AM</div>
+                    <div class="competitors">
+                        <div class="competitor">Sam <span class="location">(Naga)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Iya <span class="location">(Studio)</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="bracket-round championship-round">
+                <div class="round-label">Championship</div>
+                <div class="match-card championship">
+                    <div class="match-header">Match 2</div>
+                    <div class="match-time">10:35 AM - 10:40 AM</div>
+                    <div class="competitors">
+                        <div class="competitor">Winner of Match 1</div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Zane <span class="location">(Pacita)</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Female White & Orange Belt -->
+    <div class="division">
+        <div class="division-title">FEMALE WHITE & ORANGE BELT - Light + Featherweight</div>
+        <div class="bracket-container">
+            <div class="bracket-round round-1">
+                <div class="round-label">Round 1</div>
+                <div class="match-card">
+                    <div class="match-header">Match 3</div>
+                    <div class="match-time">10:50 AM - 10:55 AM</div>
+                    <div class="competitors">
+                        <div class="competitor">Jai <span class="location">(Studio)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Marie <span class="location">(Molino)</span></div>
+                    </div>
+                </div>
+                <div class="match-card">
+                    <div class="match-header">Match 4</div>
+                    <div class="match-time">10:55 AM - 11:00 AM</div>
+                    <div class="competitors">
+                        <div class="competitor">Mich <span class="location">(Calamba)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Gella <span class="location">(Studio)</span></div>
+                    </div>
+                </div>
+                <div class="match-card">
+                    <div class="match-header">Match 5</div>
+                    <div class="match-time">11:00 AM - 11:05 AM</div>
+                    <div class="competitors">
+                        <div class="competitor">Sab <span class="location">(Sto. Tomas)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Lana <span class="location">(Studio)</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="bracket-round semi-final-round">
+                <div class="round-label">Semi-Finals</div>
+                <div class="match-card semi-final">
+                    <div class="match-header">Match 6</div>
+                    <div class="match-time">11:05 AM - 11:10 AM</div>
+                    <div class="competitors">
+                        <div class="competitor">Winner of Match 3</div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Winner of Match 4</div>
+                    </div>
+                </div>
+                <div class="match-card semi-final">
+                    <div class="match-header">Match 7</div>
+                    <div class="match-time">11:10 AM - 11:15 AM</div>
+                    <div class="competitors">
+                        <div class="competitor">Winner of Match 5</div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Pam <span class="location">(Calamba)</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="bracket-round championship-round">
+                <div class="round-label">Championship</div>
+                <div class="match-card championship">
+                    <div class="match-header">Match 8</div>
+                    <div class="match-time">11:15 AM - 11:20 AM</div>
+                    <div class="competitors">
+                        <div class="competitor">Winner of Match 6</div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Winner of Match 7</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- White Belt Rooster -->
+    <div class="division">
+        <div class="division-title">WHITE BELT - Rooster</div>
+        <div class="bracket-container">
+            <div class="bracket-round semi-final-round">
+                <div class="round-label">Semi-Finals</div>
+                <div class="match-card semi-final">
+                    <div class="match-header">Match 9</div>
+                    <div class="match-time">11:20 AM - 11:25 AM</div>
+                    <div class="competitors">
+                        <div class="competitor">Clau <span class="location">(Studio)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Maggie <span class="location">(Sto. Tomas)</span></div>
+                    </div>
+                </div>
+                <div class="match-card semi-final">
+                    <div class="match-header">Match 10</div>
+                    <div class="match-time">11:25 AM - 11:30 AM</div>
+                    <div class="competitors">
+                        <div class="competitor">Cassie <span class="location">(Studio)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Sharmaine <span class="location">(Studio)</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="bracket-round championship-round">
+                <div class="round-label">Championship</div>
+                <div class="match-card championship">
+                    <div class="match-header">Match 11</div>
+                    <div class="match-time">11:30 AM - 11:35 AM</div>
+                    <div class="competitors">
+                        <div class="competitor">Winner of Match 9</div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Winner of Match 10</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Male White Belt Heavyweight+ -->
+    <div class="division">
+        <div class="division-title">MALE WHITE BELT - Heavyweight+</div>
+        <div class="bracket-container">
+            <div class="bracket-round round-1">
+                <div class="round-label">Round 1</div>
+                <div class="match-card">
+                    <div class="match-header">Match 12</div>
+                    <div class="match-time">11:50 AM - 11:55 AM</div>
+                    <div class="competitors">
+                        <div class="competitor">Lags <span class="location">(Naga)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Andrew <span class="location">(Calamba)</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="bracket-round championship-round">
+                <div class="round-label">Championship</div>
+                <div class="match-card championship">
+                    <div class="match-header">Match 13</div>
+                    <div class="match-time">11:55 AM - 12:00 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Winner of Match 12</div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Miel <span class="location">(Calamba)</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Male White Belt Middleweight+ -->
+    <div class="division">
+        <div class="division-title">MALE WHITE BELT - Middleweight+</div>
+        <div class="bracket-container">
+            <div class="bracket-round round-1">
+                <div class="round-label">Round 1</div>
+                <div class="match-card">
+                    <div class="match-header">Match 14</div>
+                    <div class="match-time">12:00 PM - 12:05 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Bordz <span class="location">(Calamba)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Kloyd <span class="location">(Studio)</span></div>
+                    </div>
+                </div>
+                <div class="match-card">
+                    <div class="match-header">Match 15</div>
+                    <div class="match-time">12:05 PM - 12:10 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Ralph <span class="location">(Studio)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Gideon <span class="location">(Molino)</span></div>
+                    </div>
+                </div>
+                <div class="match-card">
+                    <div class="match-header">Match 16</div>
+                    <div class="match-time">12:10 PM - 12:15 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Joshua <span class="location">(Lipa)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">P <span class="location">(Studio)</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="bracket-round semi-final-round">
+                <div class="round-label">Semi-Final</div>
+                <div class="match-card semi-final">
+                    <div class="match-header">Match 17</div>
+                    <div class="match-time">12:15 PM - 12:20 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Winner of Match 14</div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Winner of Match 15</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="bracket-round championship-round">
+                <div class="round-label">Championship</div>
+                <div class="match-card championship">
+                    <div class="match-header">Match 18</div>
+                    <div class="match-time">12:20 PM - 12:25 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Winner of Match 16</div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Winner of Match 17</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Male White Belt Featherweight+ -->
+    <div class="division">
+        <div class="division-title">MALE WHITE BELT - Featherweight+</div>
+        <div class="bracket-container">
+            <div class="bracket-round round-1">
+                <div class="round-label">Round 1</div>
+                <div class="match-card">
+                    <div class="match-header">Match 19</div>
+                    <div class="match-time">12:25 PM - 12:30 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Jay <span class="location">(Pacita)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Lewis <span class="location">(Molino)</span></div>
+                    </div>
+                </div>
+                <div class="match-card">
+                    <div class="match-header">Match 20</div>
+                    <div class="match-time">12:30 PM - 12:35 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Chad <span class="location">(Studio)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Klyde <span class="location">(Lipa)</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="bracket-round semi-final-round">
+                <div class="round-label">Semi-Final</div>
+                <div class="match-card semi-final">
+                    <div class="match-header">Match 21</div>
+                    <div class="match-time">12:35 PM - 12:40 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Winner of Match 19</div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Winner of Match 20</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="bracket-round championship-round">
+                <div class="round-label">Championship</div>
+                <div class="match-card championship">
+                    <div class="match-header">Match 22</div>
+                    <div class="match-time">12:40 PM - 12:45 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Winner of Match 21</div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Mikheil <span class="location">(Molino)</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Male White Belt Rooster -->
+    <div class="division">
+        <div class="division-title">MALE WHITE BELT - Rooster</div>
+        <div class="bracket-container">
+            <div class="bracket-round round-1">
+                <div class="round-label">Round 1</div>
+                <div class="match-card">
+                    <div class="match-header">Match 23</div>
+                    <div class="match-time">12:45 PM - 12:50 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">George <span class="location">(Calamba)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Gab <span class="location">(Studio)</span></div>
+                    </div>
+                </div>
+                <div class="match-card">
+                    <div class="match-header">Match 24</div>
+                    <div class="match-time">12:50 PM - 12:55 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Richard <span class="location">(Calamba)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Seb <span class="location">(Lipa)</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="bracket-round semi-final-round">
+                <div class="round-label">Semi-Final</div>
+                <div class="match-card semi-final">
+                    <div class="match-header">Match 25</div>
+                    <div class="match-time">12:55 PM - 1:00 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Winner of Match 23</div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Winner of Match 24</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="bracket-round championship-round">
+                <div class="round-label">Championship</div>
+                <div class="match-card championship">
+                    <div class="match-header">Match 26</div>
+                    <div class="match-time">1:00 PM - 1:05 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Winner of Match 25</div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Sixto <span class="location">(Pacita)</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Male Blue Belt Heavyweight+ -->
+    <div class="division">
+        <div class="division-title">MALE BLUE BELT - Heavyweight+</div>
+        <div class="bracket-container single-match">
+            <div class="bracket-round championship-round">
+                <div class="round-label">Championship</div>
+                <div class="match-card championship">
+                    <div class="match-header">Match 27</div>
+                    <div class="match-time">1:15 PM - 1:20 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Mike Thiago <span class="location">(Calamba)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Rico Contreras <span class="location">(Studio)</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Male Blue Belt Middleweight+ -->
+    <div class="division">
+        <div class="division-title">MALE BLUE BELT - Middleweight+</div>
+        <div class="bracket-container">
+            <div class="bracket-round semi-final-round">
+                <div class="round-label">Semi-Finals</div>
+                <div class="match-card semi-final">
+                    <div class="match-header">Match 28</div>
+                    <div class="match-time">1:20 PM - 1:25 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">William <span class="location">(Naga)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Francis <span class="location">(Pacita)</span></div>
+                    </div>
+                </div>
+                <div class="match-card semi-final">
+                    <div class="match-header">Match 29</div>
+                    <div class="match-time">1:25 PM - 1:30 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Zion <span class="location">(Pacita)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Redd <span class="location">(Studio)</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="bracket-round championship-round">
+                <div class="round-label">Championship</div>
+                <div class="match-card championship">
+                    <div class="match-header">Match 30</div>
+                    <div class="match-time">1:30 PM - 1:35 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Winner of Match 28</div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Winner of Match 29</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mixed Blue Belt -->
+    <div class="division">
+        <div class="division-title">MIXED BLUE BELT - Featherweight & Rooster</div>
+        <div class="bracket-container">
+            <div class="bracket-round semi-final-round">
+                <div class="round-label">Semi-Finals</div>
+                <div class="match-card semi-final">
+                    <div class="match-header">Match 31</div>
+                    <div class="match-time">1:35 PM - 1:40 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Gel <span class="location">(Studio)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Jong <span class="location">(Sto. Tomas)</span></div>
+                    </div>
+                </div>
+                <div class="match-card semi-final">
+                    <div class="match-header">Match 32</div>
+                    <div class="match-time">1:40 PM - 1:45 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Miko <span class="location">(Naga)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Kurt <span class="location">(Pacita)</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="connector"></div>
+            
+            <div class="bracket-round championship-round">
+                <div class="round-label">Championship</div>
+                <div class="match-card championship">
+                    <div class="match-header">Match 33</div>
+                    <div class="match-time">1:45 PM - 1:50 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Winner of Match 31</div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Winner of Match 32</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Male Purple Belt Middleweight+ -->
+    <div class="division">
+        <div class="division-title">MALE PURPLE BELT - Middleweight+</div>
+        <div class="bracket-container single-match">
+            <div class="bracket-round championship-round">
+                <div class="round-label">Championship</div>
+                <div class="match-card championship">
+                    <div class="match-header">Match 34</div>
+                    <div class="match-time">2:00 PM - 2:05 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Markie <span class="location">(Pacita)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Jay Villena <span class="location">(Lipa)</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Male Purple Belt Featherweight & Rooster -->
+    <div class="division">
+        <div class="division-title">MALE PURPLE BELT - Featherweight & Rooster+</div>
+        <div class="bracket-container single-match">
+            <div class="bracket-round championship-round">
+                <div class="round-label">Championship</div>
+                <div class="match-card championship">
+                    <div class="match-header">Match 34</div>
+                    <div class="match-time">2:05 PM - 2:10 PM</div>
+                    <div class="competitors">
+                        <div class="competitor">Mickee <span class="location">(Pacita)</span></div>
+                        <div class="vs">VS</div>
+                        <div class="competitor">Rey <span class="location">(Calamba)</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
